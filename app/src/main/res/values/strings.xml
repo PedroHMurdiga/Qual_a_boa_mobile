@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos do aplicativo -->
+<resources>
+    <string name="app_name">Qual é a Boa?</string>
+    <string name="logo_description">Logo do Qual é a Boa?</string>
+
+    <!-- Geral -->
+    <string name="error_required">Esse campo tá vazio</string>
+
+    <!-- Lista de eventos -->
+    <string name="title_discover">Qual é a boa hoje?</string>
+    <string name="hint_search">Procura um evento ou lugar</string>
+    <string name="action_create_event">Criar evento</string>
+    <string name="empty_no_events">Ainda não tem nada por aqui. Que tal criar o primeiro evento?</string>
+    <string name="empty_no_results">Não achei nada com essa busca.</string>
+    <string name="event_image_description">Foto do evento</string>
+
+    <!-- Detalhes do evento -->
+    <string name="error_invalid_date">Essa data tá estranha.</string>
+    <string name="error_invalid_time">Esse horário não existe.</string>
+
+    <!-- Criar / editar evento -->
+    <string name="title_new_event">Novo evento</string>
+    <string name="title_edit_event">Editar evento</string>
+    <string name="create_event_subtitle">Conta pra galera qual é a boa!</string>
+    <string name="hint_title">Nome do evento *</string>
+    <string name="hint_description">Conta mais sobre ele</string>
+    <string name="hint_date">Data *</string>
+    <string name="hint_time">Horário (se tiver)</string>
+    <string name="hint_location">Onde vai ser? *</string>
+    <string name="required_fields_note">* obrigatório</string>
+    <string name="action_save">Salvar evento</string>
+    <string name="action_delete">Apagar evento</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_no_time">Sem horário</string>
+    <string name="dialog_delete_title">Apagar esse evento?</string>
+    <string name="dialog_delete_message">“%1$s” vai sumir pra todo mundo, e não dá pra desfazer.</string>
+    <string name="confirm_delete">Apagar</string>
+    <string name="message_event_saved">Prontinho, evento salvo!</string>
+    <string name="message_event_deleted">Evento apagado.</string>
+</resources>
