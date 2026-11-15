@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema ESCURO: mesmas chaves de values/colors.xml, com tons escuros da marca -->
+    <color name="color_primary">#FF7A6E</color>
+    <color name="color_on_primary">#3B0A06</color>
+    <color name="color_primary_container">@color/brand_orange</color>
+    <color name="color_on_primary_container">@color/brand_brown</color>
+    <color name="color_secondary">#FFB159</color>
+    <color name="color_on_secondary">@color/brand_brown</color>
+    <color name="color_secondary_container">#5A3A1A</color>
+    <color name="color_on_secondary_container">#FFE0B2</color>
+
+    <color name="color_background">#1C1410</color>
+    <color name="color_on_background">#F5E9D8</color>
+    <color name="color_surface">#2A1F18</color>
+    <color name="color_surface_container">#33261D</color>
+    <color name="color_on_surface">#F5E9D8</color>
+    <color name="color_text_secondary">#CDB9A6</color>
+    <color name="color_outline">#5A4636</color>
+    <color name="color_error">#FFB4AB</color>
+
+    <color name="color_image_background">#3A2B21</color>
+    <color name="color_icon">#FFB159</color>
+</resources>

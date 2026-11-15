@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos em português (o Android usa este arquivo quando o celular está em pt-BR) -->
+<resources>
+    <string name="app_name">Qual é a Boa?</string>
+    <string name="logo_description">Logo do Qual é a Boa?</string>
+
+    <!-- Lista de eventos -->
+    <string name="main_subtitle">Qual é a boa hoje?</string>
+    <string name="action_create_event">Criar evento</string>
+    <string name="hint_filter">Procura um evento ou lugar</string>
+    <string name="empty_no_events">Ainda não tem nada por aqui. Que tal criar o primeiro evento?</string>
+    <string name="empty_no_results">Não achei nada com essa busca.</string>
+    <string name="evento_data_horario">%1$s • %2$s</string>
+    <string name="event_image_description">Foto do evento</string>
+
+    <!-- Detalhes do evento -->
+    <string name="no_description">Sem descrição por enquanto.</string>
+    <string name="action_open_map">Ver no mapa</string>
+    <string name="action_add_to_calendar">Salvar na agenda</string>
+    <string name="action_edit">Editar evento</string>
+    <string name="action_delete">Apagar evento</string>
+    <string name="action_back">Voltar</string>
+    <string name="dialog_delete_title">Apagar esse evento?</string>
+    <string name="dialog_delete_message">“%1$s” vai sumir pra todo mundo, e não dá pra desfazer.</string>
+    <string name="confirm_delete">Apagar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="error_no_map_app">Não achei nenhum app de mapa no celular.</string>
+    <string name="error_no_calendar_app">Não achei nenhum app de agenda no celular.</string>
+    <string name="error_invalid_date">Essa data tá estranha.</string>
+    <string name="message_event_deleted">Evento apagado.</string>
+
+    <!-- Criar / editar evento -->
+    <string name="title_new_event">Novo evento</string>
+    <string name="title_edit_event">Editar evento</string>
+    <string name="create_event_subtitle">Conta pra galera qual é a boa!</string>
+    <string name="action_choose_image">Toca na imagem pra escolher uma foto</string>
+    <string name="hint_title">Nome do evento *</string>
+    <string name="hint_description">Conta mais sobre ele</string>
+    <string name="hint_date">Data *</string>
+    <string name="hint_time">Horário (se tiver)</string>
+    <string name="hint_location">Onde vai ser? *</string>
+    <string name="action_save">Salvar evento</string>
+    <string name="action_no_time">Sem horário</string>
+    <string name="error_fill_event">Preenche o nome, a data e o local do evento</string>
+    <string name="message_event_saved">Prontinho, evento salvo!</string>
+</resources>

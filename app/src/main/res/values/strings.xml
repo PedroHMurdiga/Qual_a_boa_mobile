@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Textos em inglês (idioma padrão). O português fica em values-pt-rBR/strings.xml -->
+<resources>
+    <string name="app_name">Qual é a Boa?</string>
+    <string name="logo_description">Qual é a Boa? logo</string>
+
+    <!-- Event list -->
+    <string name="main_subtitle">What\'s up today?</string>
+    <string name="action_create_event">Create event</string>
+    <string name="hint_filter">Search an event or place</string>
+    <string name="empty_no_events">Nothing here yet. How about creating the first event?</string>
+    <string name="empty_no_results">No events found for this search.</string>
+    <string name="evento_data_horario">%1$s • %2$s</string>
+    <string name="event_image_description">Event photo</string>
+
+    <!-- Event details -->
+    <string name="no_description">No description yet.</string>
+    <string name="action_open_map">See on map</string>
+    <string name="action_add_to_calendar">Save to calendar</string>
+    <string name="action_edit">Edit event</string>
+    <string name="action_delete">Delete event</string>
+    <string name="action_back">Back</string>
+    <string name="dialog_delete_title">Delete this event?</string>
+    <string name="dialog_delete_message">“%1$s” will be removed for everyone. This can\'t be undone.</string>
+    <string name="confirm_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="error_no_map_app">No map app found on this phone.</string>
+    <string name="error_no_calendar_app">No calendar app found on this phone.</string>
+    <string name="error_invalid_date">This date looks wrong.</string>
+    <string name="message_event_deleted">Event deleted.</string>
+
+    <!-- Create / edit event -->
+    <string name="title_new_event">New event</string>
+    <string name="title_edit_event">Edit event</string>
+    <string name="create_event_subtitle">Tell everyone what\'s up!</string>
+    <string name="action_choose_image">Tap the image to choose a photo</string>
+    <string name="hint_title">Event name *</string>
+    <string name="hint_description">Tell us more about it</string>
+    <string name="hint_date">Date *</string>
+    <string name="hint_time">Time (optional)</string>
+    <string name="hint_location">Where is it? *</string>
+    <string name="action_save">Save event</string>
+    <string name="action_no_time">No time</string>
+    <string name="error_fill_event">Fill in the event name, date and place</string>
+    <string name="message_event_saved">Done, event saved!</string>
+</resources>

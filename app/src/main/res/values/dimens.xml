@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_tela">20dp</dimen>
+    <dimen name="espaco_pequeno">8dp</dimen>
+    <dimen name="espaco_medio">12dp</dimen>
+    <dimen name="espaco_grande">20dp</dimen>
+    <dimen name="altura_logo">48dp</dimen>
+    <dimen name="altura_foto_item">150dp</dimen>
+    <dimen name="altura_foto_detalhe">220dp</dimen>
+    <dimen name="altura_foto_cadastro">180dp</dimen>
+</resources>

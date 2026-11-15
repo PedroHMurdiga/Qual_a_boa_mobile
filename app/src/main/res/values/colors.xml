@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta da marca Qual é a Boa? (tirada da logo) -->
+    <color name="brand_orange">#FF8A00</color>
+    <color name="brand_red">#E9433A</color>
+    <color name="brand_beige">#FFF7E6</color>
+    <color name="brand_brown">#3B2A20</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Cores usadas pela interface no tema CLARO.
+         O tema escuro sobrescreve estas mesmas chaves em values-night/colors.xml -->
+    <color name="color_primary">@color/brand_red</color>
+    <color name="color_on_primary">@color/white</color>
+    <color name="color_primary_container">@color/brand_orange</color>
+    <color name="color_on_primary_container">@color/brand_brown</color>
+    <color name="color_secondary">@color/brand_orange</color>
+    <color name="color_on_secondary">@color/brand_brown</color>
+    <color name="color_secondary_container">#FFE0B2</color>
+    <color name="color_on_secondary_container">@color/brand_brown</color>
+
+    <color name="color_background">@color/brand_beige</color>
+    <color name="color_on_background">@color/brand_brown</color>
+    <color name="color_surface">@color/white</color>
+    <color name="color_surface_container">#FFF1DC</color>
+    <color name="color_on_surface">@color/brand_brown</color>
+    <color name="color_text_secondary">#7A6252</color>
+    <color name="color_outline">#D9C2A5</color>
+    <color name="color_error">#B3261E</color>
+
+    <color name="color_image_background">#FFE8C2</color>
+    <color name="color_icon">@color/brand_orange</color>
+</resources>

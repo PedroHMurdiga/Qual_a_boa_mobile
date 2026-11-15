@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Modo escuro: as cores vêm de values-night/colors.xml; aqui só deixamos os ícones das barras claros -->
+    <style name="Theme.QualEABoa" parent="Base.Theme.QualEABoa">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+</resources>
