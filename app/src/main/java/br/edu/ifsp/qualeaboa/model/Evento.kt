@@ -1,10 +1,14 @@
 package br.edu.ifsp.qualeaboa.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
-// Serializable para poder enviar o evento de uma tela para outra com putExtra
+// @Entity: o Room transforma esta classe na tabela "evento"
+@Entity(tableName = "evento")
 data class Evento(
-    val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val nome: String,
     val descricao: String,
     val data: String,     // formato dd/MM/yyyy

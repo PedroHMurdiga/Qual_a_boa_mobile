@@ -1,6 +1,5 @@
 package br.edu.ifsp.qualeaboa.ui
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
@@ -12,10 +11,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import br.edu.ifsp.qualeaboa.R
+import br.edu.ifsp.qualeaboa.data.QualEABoaDatabase
 import br.edu.ifsp.qualeaboa.databinding.ActivityCadastroEventoBinding
 import br.edu.ifsp.qualeaboa.model.Evento
 import br.edu.ifsp.qualeaboa.util.DataUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 // Tela usada para criar um evento novo e também para editar um evento que já existe
@@ -31,11 +35,14 @@ class CadastroEventoActivity : AppCompatActivity() {
     private lateinit var launcherGaleria: ActivityResultLauncher<Array<String>>
     private var eventoEditado: Evento? = null
     private var uriSelecionada = ""
+    private lateinit var db: QualEABoaDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroEventoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        db = QualEABoaDatabase.getInstance(this)
 
         loadData()
         setupViews()
@@ -96,7 +103,6 @@ class CadastroEventoActivity : AppCompatActivity() {
         binding.edtHorario.setOnClickListener { abrirRelogio() }
         binding.btnSalvar.setOnClickListener { salvarEvento() }
         binding.btnVoltar.setOnClickListener {
-            setResult(Activity.RESULT_CANCELED)
             finish()
         }
     }
@@ -163,10 +169,11 @@ class CadastroEventoActivity : AppCompatActivity() {
         val horario = binding.edtHorario.text.toString()
         val local = binding.edtLocal.text.toString().trim()
 
-        if (nome.isNotEmpty() && data.isNotEmpty() && local.isNotEmpty()) {
-            // Na edição mantém o mesmo id; num evento novo usa a hora atual como id
+        if (nome.isNotBlank() && data.isNotBlank() && local.isNotBlank()) {
+            // Na edição mantém o mesmo id; num evento novo o id fica 0
+            // e o Room cria um id novo sozinho (autoGenerate)
             val evento = eventoEditado
-            val id = if (evento != null) evento.id else System.currentTimeMillis()
+            val id = if (evento != null) evento.id else 0
 
             val eventoSalvo = Evento(
                 id = id,
@@ -177,13 +184,24 @@ class CadastroEventoActivity : AppCompatActivity() {
                 local = local,
                 foto = uriSelecionada
             )
-
-            val resultIntent = Intent()
-            resultIntent.putExtra(EXTRA_EVENTO, eventoSalvo)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+            salvarNoBanco(eventoSalvo)
         } else {
             Toast.makeText(this, R.string.error_fill_event, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun salvarNoBanco(evento: Evento) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (eventoEditado == null) {
+                db.eventoDao().inserir(evento)
+            } else {
+                db.eventoDao().atualizar(evento)
+            }
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@CadastroEventoActivity, R.string.message_event_saved, Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 }

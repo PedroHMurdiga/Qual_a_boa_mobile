@@ -1,68 +1,68 @@
 package br.edu.ifsp.qualeaboa.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.ifsp.qualeaboa.R
 import br.edu.ifsp.qualeaboa.adapter.EventoAdapter
+import br.edu.ifsp.qualeaboa.data.QualEABoaDatabase
 import br.edu.ifsp.qualeaboa.databinding.ActivityMainBinding
 import br.edu.ifsp.qualeaboa.model.Evento
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "MainActivity"
-        const val CHAVE_EVENTOS = "eventos"
     }
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var eventos: MutableList<Evento>
     private lateinit var adapter: EventoAdapter
-    private lateinit var launcherCadastro: ActivityResultLauncher<Intent>
-    private lateinit var launcherDetalhe: ActivityResultLauncher<Intent>
+    private lateinit var db: QualEABoaDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Por enquanto os eventos ficam só na memória (o banco de dados vem depois)
         eventos = mutableListOf()
+        db = QualEABoaDatabase.getInstance(this)
 
         setupRecyclerView()
-        setupLaunchers()
         setupListeners()
-        atualizarLista()
     }
 
-    // Guarda a lista antes da tela ser recriada (ex.: quando gira o celular)
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable(CHAVE_EVENTOS, ArrayList(eventos))
+    // Toda vez que a tela aparece, carrega os eventos do banco.
+    // Assim a lista já volta atualizada depois de criar, editar ou apagar.
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val eventosSalvos = savedInstanceState.getSerializable(CHAVE_EVENTOS) as ArrayList<Evento>
-        eventos.clear()
-        eventos.addAll(eventosSalvos)
-        atualizarLista()
+    fun loadData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val listaDb = db.eventoDao().listarTodos()
+
+            withContext(Dispatchers.Main) {
+                eventos = listaDb.toMutableList()
+                atualizarLista()
+            }
+        }
     }
 
     private fun setupRecyclerView() {
         adapter = EventoAdapter(eventos) { evento ->
             val intent = Intent(this, DetalheEventoActivity::class.java)
             intent.putExtra(DetalheEventoActivity.EXTRA_EVENTO, evento)
-            launcherDetalhe.launch(intent)
+            startActivity(intent)
         }
 
         binding.rvEventos.apply {
@@ -71,49 +71,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLaunchers() {
-        // Volta da tela de cadastro com um evento novo
-        launcherCadastro = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val novoEvento = result.data?.getSerializableExtra(
-                    CadastroEventoActivity.EXTRA_EVENTO
-                ) as? Evento
-
-                if (novoEvento != null) {
-                    eventos.add(0, novoEvento)
-                    atualizarLista()
-                    Toast.makeText(this, R.string.message_event_saved, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        // Volta da tela de detalhes: o evento pode ter sido editado ou excluído
-        launcherDetalhe = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val evento = result.data?.getSerializableExtra(
-                    DetalheEventoActivity.EXTRA_EVENTO
-                ) as? Evento
-                val acao = result.data?.getStringExtra(DetalheEventoActivity.EXTRA_ACAO)
-
-                if (evento != null) {
-                    if (acao == DetalheEventoActivity.ACAO_EXCLUIR) {
-                        excluirEvento(evento)
-                    } else if (acao == DetalheEventoActivity.ACAO_EDITAR) {
-                        atualizarEvento(evento)
-                    }
-                }
-            }
-        }
-    }
-
     private fun setupListeners() {
         binding.btnAdicionar.setOnClickListener {
             val intent = Intent(this, CadastroEventoActivity::class.java)
-            launcherCadastro.launch(intent)
+            startActivity(intent)
         }
 
         binding.edtFiltro.addTextChangedListener(object : TextWatcher {
@@ -146,19 +107,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.tvVazio.visibility = View.GONE
         }
-    }
-
-    private fun atualizarEvento(eventoEditado: Evento) {
-        val posicao = eventos.indexOfFirst { it.id == eventoEditado.id }
-        if (posicao != -1) {
-            eventos[posicao] = eventoEditado
-            atualizarLista()
-        }
-    }
-
-    private fun excluirEvento(evento: Evento) {
-        eventos.removeAll { it.id == evento.id }
-        atualizarLista()
-        Toast.makeText(this, R.string.message_event_deleted, Toast.LENGTH_SHORT).show()
     }
 }

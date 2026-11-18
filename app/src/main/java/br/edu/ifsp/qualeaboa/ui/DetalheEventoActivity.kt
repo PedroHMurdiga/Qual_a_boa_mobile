@@ -1,6 +1,5 @@
 package br.edu.ifsp.qualeaboa.ui
 
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -8,57 +7,40 @@ import android.os.Bundle
 import android.provider.CalendarContract
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import br.edu.ifsp.qualeaboa.R
+import br.edu.ifsp.qualeaboa.data.QualEABoaDatabase
 import br.edu.ifsp.qualeaboa.databinding.ActivityDetalheEventoBinding
 import br.edu.ifsp.qualeaboa.model.Evento
 import br.edu.ifsp.qualeaboa.util.DataUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetalheEventoActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_EVENTO = "evento"
-        const val EXTRA_ACAO = "acao"
-        const val ACAO_EDITAR = "editar"
-        const val ACAO_EXCLUIR = "excluir"
-        const val CHAVE_FOI_EDITADO = "foiEditado"
         const val DUAS_HORAS = 2 * 60 * 60 * 1000L
     }
 
     private lateinit var binding: ActivityDetalheEventoBinding
     private lateinit var evento: Evento
-    private lateinit var launcherEdicao: ActivityResultLauncher<Intent>
-    private var foiEditado = false
+    private lateinit var db: QualEABoaDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalheEventoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        db = QualEABoaDatabase.getInstance(this)
+
         loadData()
         setupViews()
-        setupLauncher()
         setupListeners()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable(EXTRA_EVENTO, evento)
-        outState.putBoolean(CHAVE_FOI_EDITADO, foiEditado)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        evento = savedInstanceState.getSerializable(EXTRA_EVENTO) as Evento
-        foiEditado = savedInstanceState.getBoolean(CHAVE_FOI_EDITADO)
-        setupViews()
-        if (foiEditado) {
-            devolverEventoEditado()
-        }
     }
 
     private fun loadData() {
@@ -88,27 +70,6 @@ class DetalheEventoActivity : AppCompatActivity() {
             binding.tvDescricao.setText(R.string.no_description)
         } else {
             binding.tvDescricao.text = evento.descricao
-        }
-    }
-
-    // Volta da tela de cadastro com o evento editado
-    private fun setupLauncher() {
-        launcherEdicao = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val eventoEditado = result.data?.getSerializableExtra(
-                    CadastroEventoActivity.EXTRA_EVENTO
-                ) as? Evento
-
-                if (eventoEditado != null) {
-                    evento = eventoEditado
-                    foiEditado = true
-                    setupViews()
-                    devolverEventoEditado()
-                    Toast.makeText(this, R.string.message_event_saved, Toast.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 
@@ -160,10 +121,13 @@ class DetalheEventoActivity : AppCompatActivity() {
         }
     }
 
+    // Abre o cadastro para editar e fecha o detalhe.
+    // Depois de salvar, o usuário volta para a lista, que recarrega do banco.
     private fun editarEvento() {
         val intent = Intent(this, CadastroEventoActivity::class.java)
         intent.putExtra(CadastroEventoActivity.EXTRA_EVENTO, evento)
-        launcherEdicao.launch(intent)
+        startActivity(intent)
+        finish()
     }
 
     private fun confirmarExclusao() {
@@ -175,20 +139,14 @@ class DetalheEventoActivity : AppCompatActivity() {
             .show()
     }
 
-    // Avisa a MainActivity que o evento deve ser excluído e fecha a tela
     private fun excluirEvento() {
-        val resultIntent = Intent()
-        resultIntent.putExtra(EXTRA_EVENTO, evento)
-        resultIntent.putExtra(EXTRA_ACAO, ACAO_EXCLUIR)
-        setResult(Activity.RESULT_OK, resultIntent)
-        finish()
-    }
+        lifecycleScope.launch(Dispatchers.IO) {
+            db.eventoDao().deletar(evento)
 
-    // Deixa o resultado pronto: quando o usuário voltar, a MainActivity recebe o evento editado
-    private fun devolverEventoEditado() {
-        val resultIntent = Intent()
-        resultIntent.putExtra(EXTRA_EVENTO, evento)
-        resultIntent.putExtra(EXTRA_ACAO, ACAO_EDITAR)
-        setResult(Activity.RESULT_OK, resultIntent)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@DetalheEventoActivity, R.string.message_event_deleted, Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
     }
 }
