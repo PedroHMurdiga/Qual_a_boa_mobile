@@ -4,10 +4,35 @@
     <string name="app_name">Qual é a Boa?</string>
     <string name="logo_description">Qual é a Boa? logo</string>
 
+    <!-- Login -->
+    <string name="login_title">Hey, let\'s go?</string>
+    <string name="login_subtitle">Sign in to see what\'s going on.</string>
+    <string name="hint_email">Your email</string>
+    <string name="hint_password">Your password</string>
+    <string name="action_login">Sign in</string>
+    <string name="action_go_to_register">I don\'t have an account yet</string>
+    <string name="error_fill_login">Fill in your email and password</string>
+    <string name="error_wrong_credentials">Wrong email or password. Try again?</string>
+
+    <!-- Sign up -->
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">It\'s quick, and then you can join the events.</string>
+    <string name="hint_name">Your name</string>
+    <string name="hint_password_rule">Password (at least 4 characters)</string>
+    <string name="action_register">Create account</string>
+    <string name="error_fill_register">Fill in all the fields</string>
+    <string name="error_invalid_email">This email doesn\'t look right</string>
+    <string name="error_short_password">Password must be at least %1$d characters</string>
+    <string name="error_email_in_use">There\'s already an account with this email.</string>
+    <string name="message_account_created">Account created! Now just sign in.</string>
+
     <!-- Event list -->
+    <string name="greeting">Hi, %1$s!</string>
+    <string name="action_logout">Sign out</string>
     <string name="main_subtitle">What\'s up today?</string>
     <string name="action_create_event">Create event</string>
     <string name="hint_filter">Search an event or place</string>
+    <string name="filter_my_interests">Only the ones I\'m in</string>
     <string name="empty_no_events">Nothing here yet. How about creating the first event?</string>
     <string name="empty_no_results">No events found for this search.</string>
     <string name="evento_data_horario">%1$s • %2$s</string>
@@ -15,6 +40,10 @@
 
     <!-- Event details -->
     <string name="no_description">No description yet.</string>
+    <string name="action_interest">I\'m in!</string>
+    <string name="action_cancel_interest">Count me out</string>
+    <string name="who_is_going">Who\'s going (%1$d)</string>
+    <string name="no_interested">Nobody confirmed yet. Be the first!</string>
     <string name="action_open_map">See on map</string>
     <string name="action_add_to_calendar">Save to calendar</string>
     <string name="action_edit">Edit event</string>

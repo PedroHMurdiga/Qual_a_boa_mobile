@@ -24,13 +24,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/espaco_medio"
-        android:text="@string/app_name"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="?attr/colorOnBackground"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/imgLogo"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSair"
         app:layout_constraintStart_toEndOf="@id/imgLogo"
+        app:layout_constraintTop_toTopOf="@id/imgLogo"
+        tools:text="Fala, Maria!" />
+
+    <Button
+        android:id="@+id/btnSair"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_logout"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/imgLogo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/imgLogo" />
 
     <TextView
@@ -70,6 +83,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnAdicionar" />
 
+    <CheckBox
+        android:id="@+id/cbMeusEventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/filter_my_interests"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtFiltro" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEventos"
         android:layout_width="0dp"
@@ -78,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtFiltro"
+        app:layout_constraintTop_toBottomOf="@id/cbMeusEventos"
         tools:listitem="@layout/item_evento" />
 
     <TextView

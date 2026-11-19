@@ -27,6 +27,7 @@ class CadastroEventoActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_EVENTO = "evento"
+        const val EXTRA_USUARIO_ID = "usuarioId"
         const val CHAVE_FOTO = "foto"
         const val HORA_PADRAO = 19
     }
@@ -34,6 +35,7 @@ class CadastroEventoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroEventoBinding
     private lateinit var launcherGaleria: ActivityResultLauncher<Array<String>>
     private var eventoEditado: Evento? = null
+    private var usuarioId = 0
     private var uriSelecionada = ""
     private lateinit var db: QualEABoaDatabase
 
@@ -70,6 +72,7 @@ class CadastroEventoActivity : AppCompatActivity() {
     // Se veio um evento pela Intent, é uma edição
     private fun loadData() {
         eventoEditado = intent.getSerializableExtra(EXTRA_EVENTO) as? Evento
+        usuarioId = intent.getIntExtra(EXTRA_USUARIO_ID, 0)
     }
 
     private fun setupViews() {
@@ -170,10 +173,15 @@ class CadastroEventoActivity : AppCompatActivity() {
         val local = binding.edtLocal.text.toString().trim()
 
         if (nome.isNotBlank() && data.isNotBlank() && local.isNotBlank()) {
-            // Na edição mantém o mesmo id; num evento novo o id fica 0
-            // e o Room cria um id novo sozinho (autoGenerate)
+            // Na edição mantém o mesmo id e o mesmo criador.
+            // Num evento novo o id fica 0 (o Room cria um sozinho) e o criador é o usuário logado.
             val evento = eventoEditado
-            val id = if (evento != null) evento.id else 0
+            var id = 0
+            var criadorId = usuarioId
+            if (evento != null) {
+                id = evento.id
+                criadorId = evento.criadorId
+            }
 
             val eventoSalvo = Evento(
                 id = id,
@@ -182,7 +190,8 @@ class CadastroEventoActivity : AppCompatActivity() {
                 data = data,
                 horario = horario,
                 local = local,
-                foto = uriSelecionada
+                foto = uriSelecionada,
+                criadorId = criadorId
             )
             salvarNoBanco(eventoSalvo)
         } else {

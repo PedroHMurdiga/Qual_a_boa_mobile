@@ -5,6 +5,7 @@
     <dimen name="espaco_medio">12dp</dimen>
     <dimen name="espaco_grande">20dp</dimen>
     <dimen name="altura_logo">48dp</dimen>
+    <dimen name="altura_logo_grande">150dp</dimen>
     <dimen name="altura_foto_item">150dp</dimen>
     <dimen name="altura_foto_detalhe">220dp</dimen>
     <dimen name="altura_foto_cadastro">180dp</dimen>

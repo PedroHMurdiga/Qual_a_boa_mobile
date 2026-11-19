@@ -4,10 +4,35 @@
     <string name="app_name">Qual é a Boa?</string>
     <string name="logo_description">Logo do Qual é a Boa?</string>
 
+    <!-- Login -->
+    <string name="login_title">E aí, bora?</string>
+    <string name="login_subtitle">Entra aí pra ver o que tá rolando.</string>
+    <string name="hint_email">Seu e-mail</string>
+    <string name="hint_password">Sua senha</string>
+    <string name="action_login">Entrar</string>
+    <string name="action_go_to_register">Ainda não tenho conta</string>
+    <string name="error_fill_login">Preenche o e-mail e a senha</string>
+    <string name="error_wrong_credentials">E-mail ou senha não batem. Tenta de novo?</string>
+
+    <!-- Cadastro de usuário -->
+    <string name="register_title">Cria sua conta</string>
+    <string name="register_subtitle">É rapidinho, e aí você já pode colar nos eventos.</string>
+    <string name="hint_name">Seu nome</string>
+    <string name="hint_password_rule">Senha (pelo menos 4 caracteres)</string>
+    <string name="action_register">Criar conta</string>
+    <string name="error_fill_register">Preenche todos os campos</string>
+    <string name="error_invalid_email">Esse e-mail não parece certo</string>
+    <string name="error_short_password">A senha precisa ter pelo menos %1$d caracteres</string>
+    <string name="error_email_in_use">Já tem uma conta com esse e-mail.</string>
+    <string name="message_account_created">Conta criada! Agora é só entrar.</string>
+
     <!-- Lista de eventos -->
+    <string name="greeting">Fala, %1$s!</string>
+    <string name="action_logout">Sair</string>
     <string name="main_subtitle">Qual é a boa hoje?</string>
     <string name="action_create_event">Criar evento</string>
     <string name="hint_filter">Procura um evento ou lugar</string>
+    <string name="filter_my_interests">Só os que eu tô dentro</string>
     <string name="empty_no_events">Ainda não tem nada por aqui. Que tal criar o primeiro evento?</string>
     <string name="empty_no_results">Não achei nada com essa busca.</string>
     <string name="evento_data_horario">%1$s • %2$s</string>
@@ -15,6 +40,10 @@
 
     <!-- Detalhes do evento -->
     <string name="no_description">Sem descrição por enquanto.</string>
+    <string name="action_interest">Tô dentro!</string>
+    <string name="action_cancel_interest">Não vou mais</string>
+    <string name="who_is_going">Quem vai (%1$d)</string>
+    <string name="no_interested">Ninguém confirmou ainda. Seja o primeiro!</string>
     <string name="action_open_map">Ver no mapa</string>
     <string name="action_add_to_calendar">Salvar na agenda</string>
     <string name="action_edit">Editar evento</string>

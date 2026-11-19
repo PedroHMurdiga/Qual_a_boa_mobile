@@ -89,18 +89,31 @@
                 tools:text="Música ao vivo e comida típica." />
 
             <Button
-                android:id="@+id/btnMapa"
+                android:id="@+id/btnInteresse"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/espaco_grande"
-                android:text="@string/action_open_map"
+                android:text="@string/action_interest"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDescricao" />
 
             <Button
+                android:id="@+id/btnMapa"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/espaco_pequeno"
+                android:text="@string/action_open_map"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnInteresse" />
+
+            <Button
                 android:id="@+id/btnAgenda"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/action_add_to_calendar"
@@ -108,6 +121,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnMapa" />
+
+            <TextView
+                android:id="@+id/tvTituloQuemVai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/espaco_grande"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnAgenda"
+                tools:text="Quem vai (2)" />
+
+            <TextView
+                android:id="@+id/tvQuemVai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTituloQuemVai"
+                tools:text="Maria\nJoão" />
 
             <Button
                 android:id="@+id/btnEditar"
@@ -119,7 +158,7 @@
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnAgenda" />
+                app:layout_constraintTop_toBottomOf="@id/tvQuemVai" />
 
             <Button
                 android:id="@+id/btnExcluir"

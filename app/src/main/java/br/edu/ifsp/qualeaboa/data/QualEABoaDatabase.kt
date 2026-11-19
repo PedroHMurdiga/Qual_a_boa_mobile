@@ -5,11 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.edu.ifsp.qualeaboa.model.Evento
+import br.edu.ifsp.qualeaboa.model.Interesse
+import br.edu.ifsp.qualeaboa.model.Usuario
 
-@Database(entities = [Evento::class], version = 1)
+@Database(entities = [Evento::class, Usuario::class, Interesse::class], version = 1)
 abstract class QualEABoaDatabase : RoomDatabase() {
 
     abstract fun eventoDao(): EventoDao
+    abstract fun usuarioDao(): UsuarioDao
+    abstract fun interesseDao(): InteresseDao
 
     companion object {
         @Volatile

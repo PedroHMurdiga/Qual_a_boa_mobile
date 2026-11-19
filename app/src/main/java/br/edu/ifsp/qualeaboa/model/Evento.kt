@@ -14,5 +14,6 @@ data class Evento(
     val data: String,     // formato dd/MM/yyyy
     val horario: String,  // formato HH:mm (pode ficar vazio)
     val local: String,
-    val foto: String      // Uri da imagem da galeria guardada como String
+    val foto: String,     // Uri da imagem da galeria guardada como String
+    val criadorId: Int    // id do usuário que criou o evento
 ) : Serializable
